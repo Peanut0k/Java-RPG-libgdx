@@ -1,0 +1,56 @@
+package io.github.peanut0k.testrpg.components;
+
+import com.badlogic.ashley.core.Component;
+import com.badlogic.ashley.core.ComponentMapper;
+import com.badlogic.gdx.math.Vector2;
+
+public class Transform implements Component, Comparable<Transform> {
+    public static final ComponentMapper<Transform> MAPPER = ComponentMapper.getFor(Transform.class);
+
+    private final Vector2 position;
+    private final int z;
+    private final Vector2 scaling;
+    private final Vector2 size;
+    private final float rotationDeg;
+
+    public Transform(
+        Vector2 position,
+        int z,
+        Vector2 scaling,
+        Vector2 size,
+        float rotationDeg
+    ) {
+        this.position = position;
+        this.z = z;
+        this.scaling = scaling;
+        this.size = size;
+        this.rotationDeg = rotationDeg;
+    }
+
+    @Override
+    public int compareTo(Transform other) {
+        if (this.z != other.z) {
+            return Float.compare(this.z, other.z);
+        }
+        if (this.position.y != other.position.y) {
+            return Float.compare(this.position.y, other.position.y);
+        }
+        return Float.compare(this.position.x, other.position.x);
+    }
+
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public Vector2 getScaling() {
+        return scaling;
+    }
+
+    public Vector2 getSize() {
+        return size;
+    }
+
+    public float getRotationDeg() {
+        return rotationDeg;
+    }
+}
